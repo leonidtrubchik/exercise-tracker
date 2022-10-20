@@ -16,6 +16,8 @@ export default class CreateExercise extends Component {
             users: []
         }
 
+        this.userInput = React.createRef();
+
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
@@ -80,7 +82,7 @@ export default class CreateExercise extends Component {
                     <div className="form-group">
                         <label>Username</label>
                         <select
-                            ref="userInput"
+                            ref={this.userInput}
                             required
                             className="form-control"
                             value={this.state.username}
@@ -110,7 +112,7 @@ export default class CreateExercise extends Component {
                             />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-group">
                         <label>Duration (in minutes)</label>
                         <input 
                             type="text"
@@ -121,7 +123,7 @@ export default class CreateExercise extends Component {
                             />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-group">
                         <label>Date</label>
                         <div>
                             <DatePicker
@@ -131,7 +133,7 @@ export default class CreateExercise extends Component {
                         </div>
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-group">
                         <input 
                             type="submit"
                             className="btn btn-primary"
