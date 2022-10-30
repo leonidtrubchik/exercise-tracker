@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { useParams } from "react-router-dom";
 
-export default class EditExercise extends Component {
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
+
+class EditExercise extends Component {
 
     constructor(props) {
         super(props);
@@ -26,7 +31,8 @@ export default class EditExercise extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/users/'+this.props.match.params.id)
+        
+        axios.get(`http://localhost:5000/exercises/${this.props.params.id}`)
             .then( res => {
                 this.setState({
                     username: res.data.username,
@@ -80,7 +86,7 @@ export default class EditExercise extends Component {
             date: this.state.date
         }
 
-        axios.post("http://localhost:5000/exercises/update"+this.props.match.params.id, exercise)
+        axios.post(`http://localhost:5000/exercises/update/${this.props.params.id}`, exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';
@@ -158,4 +164,6 @@ export default class EditExercise extends Component {
             </div>
         )
     }
-}
+};
+
+export default withParams(EditExercise);
